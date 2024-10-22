@@ -57,7 +57,7 @@ function Donations() {
                 {/* <th scope="col" className="px-6 py-3">
                     Sr No
                 </th> */}
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-9 py-3">
                     Name
                 </th>
                 {/* <th scope="col" className="px-6 py-3">
@@ -120,7 +120,7 @@ function Donations() {
                         {index+1}
                     </td> */}
                     <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src={user.img} alt={`${user.name} image`} />
+                        {/* <img className="w-10 h-10 rounded-full" src={user.img} alt={`${user.name} image`} /> */}
                         <div className="ps-3">
                             <div className="text-base font-semibold">{user.name}</div>
                             <div className="text-base font-semibold text-gray-500">jagdish prasad</div>
