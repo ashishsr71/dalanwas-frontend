@@ -3,9 +3,10 @@ import { Outlet } from 'react-router-dom'
 import Modal from './Modal';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import ExamResult from './ExamResult';
-
 import Sidebar from './Sidebar';
 import LargeMenu from './LargeMenu';
+import Footer from '../pages/Footer';
+
 function Navbar() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -113,6 +114,7 @@ function Navbar() {
     
           {/* <Modal isOpen={isModalOpen} onClose={closeModal} /> */}
           <Outlet />
+         
         </>
       );
     };

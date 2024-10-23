@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function LargeMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,11 +75,15 @@ function LargeMenu() {
         >
           <ul className="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
-              <Link to='/banner'
-                className="block py-2 px-3 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-              >
+              <NavLink to='/banner'
+               className={({ isActive, isPending }) =>
+                 isActive ? "block py-2 px-3 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" : "block py-2 px-3  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
+              }
+            >
+                
+              
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
               <button
@@ -144,10 +148,10 @@ function LargeMenu() {
                 <div className="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                   <ul className="space-y-4">
                     <li>
-                      <Link to='/history'
+                      <Link to='/result'
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
-                        Blog
+                        Library Result
                       </Link>
                     </li>
                     <li>
