@@ -88,7 +88,7 @@ const BannerHome = () => {
 
                                 <div className='container mx-auto'>
                                     <div className=' w-full absolute bottom-0 max-w-md px-3'>
-                                        <h2 className='font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl '>Library page on this day</h2>
+                                        <h2 className='font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl '>बाबा सांवत नाथ पुस्तकालय</h2>
                                         <p className='text-ellipsis text-white line-clamp-3 my-2'>Library has been significantly improving the things</p>
                                         <div className='flex items-center gap-4'>
                                             <p className='text-white'>Rating : { Number(data.vote_average).toFixed(1) }+</p>

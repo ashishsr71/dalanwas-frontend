@@ -37,10 +37,13 @@ const CardCarousel = () => {
         {cards.map((card, index) => (
           <div key={index} className="p-4">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-bold mb-2">{card.title}</h2>
-              <p className="text-gray-700">{card.text}</p>
+              <h2 className="text-xl font-bold mb-2">जरूरी सुचना</h2>
+              <p className="text-gray-700">आपको सुचित किया जाता है
+              आपको सुचित किया जाता है
+              आपको सुचित किया जाता है
+              </p>
               <button className="mt-4 px-4 py-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg">
-                Action
+              सूचना
               </button>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Cardv from "./Card";
 
 
-const CardGrid = () => {
+const CardGrid = ({data}) => {
     const [selectedCandidates, setSelectedCandidates] = useState([]);
   const divRef=useRef(null);
   useEffect(()=>{
@@ -24,8 +24,8 @@ const CardGrid = () => {
       <div ref={divRef} className="container mx-auto p-4 mt-20">
         <h2 className="text-2xl font-semibold text-center mb-4">Selected Candidates: {selectedCandidates.join(", ")}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[1,2,2,2,2,2,].map((candidate) => (
-            <Cardv  />
+          {data.map((candidate,i) => (
+            <Cardv key={i} candidate={candidate} />
           ))}
         </div>
       </div>

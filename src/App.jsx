@@ -20,8 +20,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 const router=createBrowserRouter(createRoutesFromElements(<Route path='/' element={<Navbar/>}>
-  <Route path='/jobs/:id' element={<h2>hiii there</h2>}/>
-  <Route path='/' index element={<New/>}/>
+
+  <Route path='/' index element={<BannerHome/>}/>
   <Route path='/banner' element={<BannerHome/>}/>
   <Route path='/history' element={<History/>}/>
   <Route path='/donations' element={<Donations/>}/>
