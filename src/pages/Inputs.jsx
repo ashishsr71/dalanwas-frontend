@@ -4,6 +4,7 @@ import CorouselForm from './CorouselForm';
 import Info from './Info';
 import ResultForm from './ResultForm';
 import DonationForm from './DonationForm';
+import GalleryInput from './GalleryInput';
 
 function Inputs() {
 const [color,setColor]=useState("Carousel");
@@ -48,7 +49,7 @@ const [color,setColor]=useState("Carousel");
     <li>
       <div onClick={(e)=>{setColor("Disabled")}}
         className={color=="Disabled" ?"inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500":"inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" }>
-        Disabled
+        Gallery
       </div>
     </li>
   </ul>
@@ -57,6 +58,7 @@ const [color,setColor]=useState("Carousel");
 {color=="Info" &&<Info/>}
 {color=="Result"&&<ResultForm/>}
 {color=="Donations"&&<DonationForm/>}
+{color=="Disabled"&&<GalleryInput/>}
 {/* {color=="Disabled"&} */}
 </> )
 }

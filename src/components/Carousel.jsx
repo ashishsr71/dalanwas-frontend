@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from "react-feather"
+
+
+
 const slides=[1,1,1]
 const Carousel = ({ children,autoSlide = false, autoSlideInterval = 3000 }) => {
     console.log(children)
@@ -9,11 +12,7 @@ const Carousel = ({ children,autoSlide = false, autoSlideInterval = 3000 }) => {
 
     const next = () => setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
 
-    // useEffect(() => {
-    //     if (!autoSlide) return
-    //     const slideInterval = setInterval(next, autoSlideInterval)
-    //     return () => clearInterval(slideInterval)
-    // }, [])
+
 
 
     return (
@@ -31,7 +30,7 @@ const Carousel = ({ children,autoSlide = false, autoSlideInterval = 3000 }) => {
             </div>
             <div className='absolute bottom-4 right-0 left-0'>
                 <div className='flex items-center justify-center gap-2'>
-                    {[1,2,3,3].map((s, i) => (
+                    {slides?.lenght&&[1,2,3,3].map((s, i) => (
                         <div key={i} className={`transition-all w-1.5 h-1.5 bg-white rounded-full  ${curr === i ? "p-0.5" : "bg-opacity-50"}`} />
                     ))}
                 </div>

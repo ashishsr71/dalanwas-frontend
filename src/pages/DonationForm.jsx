@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
+import {storage,db} from '../firebase'
+import { collection, addDoc } from "firebase/firestore"; 
+import { toastCont } from '../App';
+
+
+
 
 function DonationForm() {
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
-        phone: '',
+        fathername: '',
+        Grandfathername: '',
         address: '',
-        description: '',
-        image: null,
+        Amount: '',
+        
       });
-    
+    const {toCallToast}=toastCont();
       const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === 'image') {
@@ -20,7 +26,23 @@ function DonationForm() {
       };
     
       const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault();    async function stor(imgUrl){
+          try {
+            const docRef = await addDoc(collection(db, "Donation"), {
+              name: formData.name,
+              Grandfathername: formData.Grandfathername,
+              fathername: formData.fathername,
+             Amount:formData.Amount,
+             address:formData.address
+            });
+            console.log("Document written with ID: ", docRef.id);
+            toCallToast("uploaded succesfully")
+          } catch (e) {
+            toCallToast("error uploading")
+            console.error("Error adding document: ", e);
+          };
+        };
+        stor();
         console.log(formData);
         // Handle form submission logic here
       };
@@ -51,8 +73,8 @@ function DonationForm() {
                 <input
                   type="text"
                   id="email"
-                  name="email"
-                  value={formData.email}
+                  name="fathername"
+                  value={formData.fathername}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your fathername"
@@ -66,8 +88,8 @@ function DonationForm() {
                 <input
                   type="text"
                   id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  name="Grandfathername"
+                  value={formData.Grandfathername}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your grandFathername"
@@ -95,8 +117,8 @@ function DonationForm() {
                 <label className="block text-gray-700 font-medium mb-2" htmlFor="description">Amount</label>
                 <textarea
                   id="description"
-                  name="description"
-                  value={formData.description}
+                  name="Amount"
+                  value={formData.Amount}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter Amount"

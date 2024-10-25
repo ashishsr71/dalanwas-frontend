@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 
+import {storage,db} from '../firebase'
+import { collection, addDoc } from "firebase/firestore"; 
+import { toastCont } from '../App';
 
-
-
+// component starts here
 function Info() {
+  
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
-        address: '',
+        suchna: '',
         description: '',
        
       });
-    
+
+    const {toCallToast}=toastCont();
+
+
       const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === 'image') {
@@ -23,6 +29,22 @@ function Info() {
     
       const handleSubmit = (e) => {
         e.preventDefault();
+        async function stor(imgUrl){
+          try {
+            const docRef = await addDoc(collection(db, "info"), {
+              name: formData.name,
+              text: formData.phone,
+              place: formData.suchna,
+             description:formData.description
+            });
+            console.log("Document written with ID: ", docRef.id);
+            toCallToast("uploaded succesfully")
+          } catch (e) {
+            toCallToast("error uploading")
+            console.error("Error adding document: ", e);
+          };
+        };
+        stor();
         console.log(formData);
         // Handle form submission logic here
       };
@@ -83,8 +105,8 @@ function Info() {
                 <input
                   type="text"
                   id="address"
-                  name="address"
-                  value={formData.address}
+                  name="suchna"
+                  value={formData.suchna}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your address"

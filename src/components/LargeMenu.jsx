@@ -11,6 +11,12 @@ function LargeMenu() {
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+
+    
+  };
+  const closeMenus = () => {
+    setIsMenuOpen(false);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -76,13 +82,13 @@ function LargeMenu() {
           <ul className="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
               <NavLink to='/banner'
+              onClick={closeMenus}
                className={({ isActive, isPending }) =>
                  isActive ? "block py-2 px-3 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" : "block py-2 px-3  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
               }
             >
                 
-              
-                Home
+           Home
               </NavLink>
             </li>
             <li>
@@ -116,43 +122,48 @@ function LargeMenu() {
                 <div className="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                   <ul className="space-y-4">
                     <li>
-                      <Link to='/history'
+                      <NavLink to='/history'
+                        onClick={closeMenus}
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
                        History
-                      </Link>
+                      </NavLink>
                     </li>
                     <li>
-                      <Link to='/donations'
+                      <NavLink to='/donations'
+                        onClick={closeMenus}
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
                         Donations
-                      </Link>
+                      </NavLink>
                     </li>
                     <li>
                       <Link to='/gallery'
+                        onClick={closeMenus}
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
                         Gallery
                       </Link>
                     </li>
                     <li>
-                      <Link to='/selections'
+                      <NavLink to='/selections'
+                        onClick={closeMenus}
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
                         Selections
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
                 <div className="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                   <ul className="space-y-4">
                     <li>
-                      <Link to='/result'
+                      <NavLink to='/result'
+                        onClick={closeMenus}
                         className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
                       >
                         Library Result
-                      </Link>
+                      </NavLink>
                     </li>
                     <li>
                       <a
@@ -162,22 +173,8 @@ function LargeMenu() {
                         Newsletter
                       </a>
                     </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
-                      >
-                        Playground
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
-                      >
-                        License
-                      </a>
-                    </li>
+                   
+                  
                   </ul>
                 </div>
                 <div className="p-4">
@@ -190,22 +187,8 @@ function LargeMenu() {
                         Contact Us
                       </a>
                     </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
-                      >
-                        Support Center
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500"
-                      >
-                        Terms
-                      </a>
-                    </li>
+                   
+                   
                   </ul>
                 </div>
               </div>

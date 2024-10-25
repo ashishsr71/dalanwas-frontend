@@ -1,13 +1,60 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { collection, getDocs } from "firebase/firestore"; 
+import { db } from '../firebase';
 
 function Gallery() {
     const [state,setState]=useState("all");
+    const[photos,setPhotos]=useState([]);
     const divRef=useRef(null);
     useEffect(()=>{
         if(divRef.current){
             divRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
     },[])
+
+
+    
+    useEffect(()=>{
+      async function getSome() {
+          const querySnapshot = await getDocs(collection(db, "gallery"));
+         if(state=="all"){
+          setPhotos(querySnapshot.docs.map(doc => {
+            return {...doc.data() }; 
+        }));
+         }
+        if(state=="Shoes"){
+          const arr=querySnapshot.docs.map(doc => {
+            return {...doc.data() }; 
+        });
+        setPhotos(arr.filter(a=>a.title=="Library"));
+        }
+        if(state=="Bags"){
+          const arr=querySnapshot.docs.map(doc => {
+            return {...doc.data() }; 
+        });
+        setPhotos(arr.filter(a=>a.title=="Mandir"));
+        }
+        if(state=="Electronics"){
+          const arr=querySnapshot.docs.map(doc => {
+            return {...doc.data() }; 
+        });
+        setPhotos(arr.filter(a=>a.title=="Prize"));
+        }
+      
+        if(state=="Gaming"){
+          const arr=querySnapshot.docs.map(doc => {
+            return {...doc.data() }; 
+        });
+        setPhotos(arr.filter(a=>a.title=="Games"));
+        }
+      
+      
+          }
+          
+      getSome();
+  },[state]);
+
+  
   return (
     <>
     <div  className="flex items-center justify-center py-4 md:py-8 flex-wrap">
@@ -43,14 +90,15 @@ function Gallery() {
       </button>
     </div>
     <div ref={divRef}  className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <div>
+      {photos.length>0&&photos.map((photo,i)=>   <div key={i}>
         <img
           className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+          src={photo.imgUrl}
           alt=""
         />
-      </div>
-      <div>
+      </div>)}
+   
+      {/* <div>
         <img
           className="h-auto max-w-full rounded-lg"
           src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
@@ -126,7 +174,7 @@ function Gallery() {
           src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg"
           alt=""
         />
-      </div>
+      </div> */}
     </div>
   </>
   

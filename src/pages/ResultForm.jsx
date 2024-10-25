@@ -1,17 +1,32 @@
 import React, { useState } from 'react'
+import {storage,db} from '../firebase'
+import { collection, addDoc } from "firebase/firestore"; 
+import { toastCont } from '../App';
+import {
+  connectStorageEmulator,
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'firebase/storage';
+import {v4 as uuid4} from 'uuid'
 
 
-
+// component starts here
 function ResultForm() {
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
-        phone: '',
+        fathername: '',
+        grandfathername: '',
         address: '',
-        description: '',
+        prize: '',
+        level: '',
+        rank:'',
         image: null,
       });
-    
+    const {toCallToast}=toastCont();
+    const storageRef = ref(storage);
+
       const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === 'image') {
@@ -23,6 +38,50 @@ function ResultForm() {
     
       const handleSubmit = (e) => {
         e.preventDefault();
+        async function stor(imgUrl){
+          try {
+            const docRef = await addDoc(collection(db, "result"), {
+              
+                name: formData.name,
+                fathername:formData.fathername,
+                grandfathername: formData.grandfathername,
+                address: formData.address,
+                prize: formData.prize,
+                level: formData.level,
+                rank:formData.rank,
+                imgUrl
+              
+            });
+            console.log("Document written with ID: ", docRef.id);
+            toCallToast("uploaded succesfully")
+          } catch (e) {
+            toCallToast("error uploading")
+            console.error("Error adding document: ", e);
+          };
+        };
+        if(formData.image){
+          async function ashish(){
+            const id=uuid4();
+           await uploadBytes(ref(storageRef, 'result/' + `${formData.image.name}${id}`), formData.image)
+            .then(function (snapshot) {
+              console.log('Uploaded', snapshot.metadata.size, 'bytes.');
+              console.log('File metadata:', snapshot.metadata);
+              // Let's get a download URL for the file.
+              getDownloadURL(snapshot.ref).then(function (url) {
+                console.log('File available at', url);
+              stor(url)
+              });
+              
+            })
+            .catch(function (error) {
+              console.error('Upload failed:', error);
+            })
+          }
+            ashish()
+      console.log(formData);
+      // Handle form submission logic here
+    }
+        
         console.log(formData);
         // Handle form submission logic here
       };
@@ -53,8 +112,8 @@ function ResultForm() {
                 <input
                   type="text"
                   id="email"
-                  name="email"
-                  value={formData.email}
+                  name="fathername"
+                  value={formData.fathername}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your email"
@@ -66,10 +125,10 @@ function ResultForm() {
               <div className="mb-4">
                 <label className="block text-gray-700 font-medium mb-2" htmlFor="phone">Grandfathername</label>
                 <input
-                  type="tel"
+                  type="text"
                   id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  name="grandfathername"
+                  value={formData.grandfathername}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your phone number"
@@ -92,32 +151,45 @@ function ResultForm() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="address">Level</label>
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="level">Level</label>
                 <input
                   type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
+                  id="level"
+                  name="level"
+                  value={formData.level}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter your address"
                   required
                 />
               </div>
-    
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="rank">Rank</label>
+                <input
+                  type="text"
+                  id="rank"
+                  name="rank"
+                  value={formData.rank}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
+                  placeholder="Enter your address"
+                  required
+                />
+              </div>
               {/* Description Input */}
               <div className="mb-4">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="description">prize</label>
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="prize">prize</label>
                 <textarea
-                  id="description"
-                  name="description"
-                  value={formData.description}
+                  id="prize"
+                  name="prize"
+                  value={formData.prize}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-indigo-500"
                   placeholder="Enter a brief description"
                   required
                 />
               </div>
+             
     
               {/* Image Upload */}
               <div className="mb-4">
