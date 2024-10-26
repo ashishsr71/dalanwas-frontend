@@ -68,7 +68,7 @@ const BannerHome = () => {
                     <div className="relative h-full w-full "> {/* Aspect Ratio */}
                         <img
                             src={data?.imgUrl}
-                            className="w-full h-full object-contain aspect-w-16 aspect-h-9"
+                            className="w-full h-full w-full h-auto"
                             alt="Banner Image"
                         />
                         {/* Masking effect using gradient */}
