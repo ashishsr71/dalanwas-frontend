@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { collection, getDocs } from "firebase/firestore"; 
 import { db } from '../firebase';
+import ImageEnlarger from './ImageEnlarger';
 
 function Gallery() {
     const [state,setState]=useState("all");
     const[photos,setPhotos]=useState([]);
+    const [isOpen, setIsOpen] = useState({open:false,imgUrl:""});
+    const setmodal=(imgUrl)=>{setIsOpen(prev=>({open:!prev.open,imgUrl}))};
+    const closeModal = () => setIsOpen({open:false,imgUrl:""});
     const divRef=useRef(null);
     useEffect(()=>{
         if(divRef.current){
@@ -17,42 +21,42 @@ function Gallery() {
     useEffect(()=>{
       async function getSome() {
           const querySnapshot = await getDocs(collection(db, "gallery"));
-         if(state=="all"){
+         
           setPhotos(querySnapshot.docs.map(doc => {
             return {...doc.data() }; 
         }));
-         }
-        if(state=="Shoes"){
-          const arr=querySnapshot.docs.map(doc => {
-            return {...doc.data() }; 
-        });
-        setPhotos(arr.filter(a=>a.title=="Library"));
-        }
-        if(state=="Bags"){
-          const arr=querySnapshot.docs.map(doc => {
-            return {...doc.data() }; 
-        });
-        setPhotos(arr.filter(a=>a.title=="Mandir"));
-        }
-        if(state=="Electronics"){
-          const arr=querySnapshot.docs.map(doc => {
-            return {...doc.data() }; 
-        });
-        setPhotos(arr.filter(a=>a.title=="Prize"));
-        }
+        
+        // if(state=="Shoes"){
+        //   const arr=querySnapshot.docs.map(doc => {
+        //     return {...doc.data() }; 
+        // });
+        // setPhotos(arr.filter(a=>a.title=="Library"));
+        // }
+        // if(state=="Bags"){
+        //   const arr=querySnapshot.docs.map(doc => {
+        //     return {...doc.data() }; 
+        // });
+        // setPhotos(arr.filter(a=>a.title=="Mandir"));
+        // }
+        // if(state=="Electronics"){
+        //   const arr=querySnapshot.docs.map(doc => {
+        //     return {...doc.data() }; 
+        // });
+        // setPhotos(arr.filter(a=>a.title=="Prize"));
+        // }
       
-        if(state=="Gaming"){
-          const arr=querySnapshot.docs.map(doc => {
-            return {...doc.data() }; 
-        });
-        setPhotos(arr.filter(a=>a.title=="Games"));
-        }
+        // if(state=="Gaming"){
+        //   const arr=querySnapshot.docs.map(doc => {
+        //     return {...doc.data() }; 
+        // });
+        // setPhotos(arr.filter(a=>a.title=="Games"));
+        // }
       
       
           }
           
       getSome();
-  },[state]);
+  },[]);
 
   
   return (
@@ -70,34 +74,34 @@ function Gallery() {
       >
         Library
       </button>
-      <button onClick={()=>{setState("Bags")}}
+      {/* <button onClick={()=>{setState("Bags")}}
         type="button"
         className={`${state=="Bags"?"text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800" :'text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800'}`}
       >
         Mandir
-      </button>
-      <button onClick={()=>{setState("Electronics")}}
+      </button> */}
+      {/* <button onClick={()=>{setState("Electronics")}}
         type="button"
         className={`${state=="Electronics"?"text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800" :'text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800'}`}
       >
         Prize
-      </button>
-      <button onClick={()=>{setState("Gaming")}}
+      </button> */}
+      {/* <button onClick={()=>{setState("Gaming")}}
         type="button"
         className={`${state=="Gaming"?"text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800" :'text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800'}`}
       >
       Games
-      </button>
+      </button> */}
     </div>
-    <div ref={divRef}  className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {photos.length>0&&photos.map((photo,i)=>   <div key={i}>
-        <img
+    <div ref={divRef}   className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {photos.length>0&&photos.map((photo,i)=>   <div  key={i}>
+        <img onClick={()=>{setmodal(photo.imgUrl)}}
           className="h-auto max-w-full rounded-lg"
           src={photo.imgUrl}
-          alt=""
+          // alt=""
         />
       </div>)}
-   
+   {isOpen.open&&<ImageEnlarger closeModal={closeModal} imgUrl={isOpen.imgUrl}/>}
       {/* <div>
         <img
           className="h-auto max-w-full rounded-lg"
@@ -187,4 +191,4 @@ function Gallery() {
 export default Gallery
 
 
-// {id:"sdkfhsakldfhklsdhf",name:"ashish",fathername:"ashsish",url:"httpkjkhskfhsdk"}
+// {id:"sdkfhsakldfhklsdhf",name:"ashish",fathername:"ashsish",url:"httpkjkhskfhsdk"}sdfgdfsdfgs

@@ -16,6 +16,7 @@ import CarouselBasicExample from './components/Test';
 import Gallery from './components/Gallery';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import Upload from './pages/Upload';
 import Inputs from './pages/Inputs';
 import Toast from './components/Toast';
@@ -29,6 +30,7 @@ import Auth from './pages/Auth';
 const router=createBrowserRouter(createRoutesFromElements(<Route path='/' element={<Navbar/>}>
 
   <Route path='/' index element={<BannerHome/>}/>
+  <Route path='/dalanwas' element={<New/>}/>
   <Route path='/banner' element={<BannerHome/>}/>
   <Route path='/history' element={<History/>}/>
   <Route path='/donations' element={<Donations/>}/>
